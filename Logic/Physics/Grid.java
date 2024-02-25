@@ -2,25 +2,29 @@ package Physics;
 
 import java.awt.Point;
 
+import ScreenSettings.Settings;
+
 
 
 public class Grid extends Block implements Update{
 	
+	long startTime = System.nanoTime();
+    long finalTime;
 	
 	Grid() {
-		PhysicsLoopCaster.addUpdateLoop(this);
+		PhysicsLoopCaster.addPhysicsUpdateLoop(this);
 		//System.out.println("added");
 	}
 	
 	public static void UpdateGrid(){
-		CurrentBlock.getPosition().y+=1;
 		CheckIfCollision();
+		//CurrentBlock.getPosition().y+=1;
 	}
 	
 	public static void CheckIfCollision() {
 		Point[] Squares = getSquaresRelativeToGrid();
 		for(Point pos : Squares) {
-			if(pos.y+1>=20 || Placed_Blocks[pos.x][pos.y+1]!=null) {
+			if(pos.y+1>=Settings.ROWS || Placed_Blocks[pos.x][pos.y+1]!=null) {
 				PlaceBlocksOnGrid(Squares);
 				NewBlock();
 				break;
@@ -41,6 +45,11 @@ public class Grid extends Block implements Update{
 
 	@Override
 	public void execute() {
-		UpdateGrid();
+		finalTime=System.nanoTime();
+		if((finalTime-startTime)/1000000>=Settings.BlockSpeedInMillis) {
+			UpdateGrid();
+			startTime = System.nanoTime();
+		}
+		
 	}
 }

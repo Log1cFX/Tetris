@@ -38,11 +38,16 @@ public class Block{
         return points;
     }
 	
+	private static void TurnBlock() {
+		
+	}
+	
 	public static void NewBlock() {
         
         int randomIndex = rand.nextInt(BlockNames.length);
         System.out.println("new block");
-        CurrentBlock = new O_Block(rand.nextInt(0,Settings.COLUMNS));
+        //CurrentBlock = new I_Block(rand.nextInt(0,Settings.COLUMNS));
+        CurrentBlock = new I_Block(9);
         /*
         switch (BlockNames[randomIndex]) {
             case "I-Block":
