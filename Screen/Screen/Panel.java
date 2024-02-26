@@ -1,9 +1,9 @@
 package Screen;
 import javax.swing.JPanel;
 
+import Inputs.Inputs;
 import Physics.Block;
 import Physics.GraphicsUpdate;
-import Physics.Inputs;
 import Physics.PhysicsLoopCaster;
 import Physics.Update;
 import ScreenSettings.Settings;
