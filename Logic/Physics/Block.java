@@ -32,7 +32,6 @@ public class Block {
 	protected static boolean performTranslation(Point t) {
 		// Point t = translation value
 		for (Point square : Block.getSquaresRelativeToGrid()) {
-			System.out.println(square);
 			Point p = new Point(square);
 			p.translate(t.x, t.y);
 			
