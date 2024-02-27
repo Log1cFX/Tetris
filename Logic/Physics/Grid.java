@@ -5,7 +5,7 @@ import java.awt.Point;
 import ScreenSettings.Settings;
 
 
-
+// all the info and methods for the grid
 public class Grid extends Block implements Update{
 	
 	long startTime = System.nanoTime();

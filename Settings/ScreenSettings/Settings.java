@@ -7,5 +7,5 @@ public class Settings {
 	public static final int ROWS = 20;
 	public static final int PIXEL_SIZE = SCREEN_HEIGHT/ROWS;
 	public static final int FPS = 100;
-	public static int BlockSpeedInMillis = 500;
+	public static int BlockSpeedInMillis = 100;
 }

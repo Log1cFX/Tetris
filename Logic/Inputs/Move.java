@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import Physics.Block;
 
+// Performs the action
 public class Move extends Block{
 	public static void down() {
 		performTranslation(new Point(0,1));

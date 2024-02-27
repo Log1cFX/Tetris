@@ -39,6 +39,9 @@ public class Inputs implements KeyListener {
 				break;
 			}
 		}
+		// checks all the existing instances of keyPressed to see if there is an
+		// instance with the same button
+		// if there is, it shuts down the instance and deletes from the array
 	}
 
 	protected void InputHandler(int KeyCode) {
