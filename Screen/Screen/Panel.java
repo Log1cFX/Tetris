@@ -45,9 +45,9 @@ public class Panel extends JPanel implements KeyListener,GraphicsUpdate {
 	private void drawPlacedBlocks(Graphics g) {
 		for(int i=0;i<Settings.COLUMNS;i++) {
 			for(int j=0;j<Settings.ROWS;j++) {
-				if(Block.Placed_Blocks[i][j]!=null) {
-					g.setColor(Block.Placed_Blocks[i][j].color1);
-					g.fillRect(i*Pixel_Size, j*Pixel_Size, Pixel_Size, Pixel_Size);
+				if(Block.Placed_Blocks[j][i]!=null) {
+					g.setColor(Block.Placed_Blocks[j][i].color1);
+					g.fillRect(j*Pixel_Size, i*Pixel_Size, Pixel_Size, Pixel_Size);
 				}
 			}
 		}
@@ -55,10 +55,10 @@ public class Panel extends JPanel implements KeyListener,GraphicsUpdate {
 
 	private void drawGrid(Graphics g) {
 		g.setColor(Color.gray);
-		for(int i=0;i<Settings.ROWS;i++) {
+		for(int i=0;i<Settings.COLUMNS;i++) {
 			g.drawLine(0, i*Pixel_Size, Screen_Width, i*Pixel_Size);
         }
-		for(int i=0;i<Settings.COLUMNS;i++) {
+		for(int i=0;i<Settings.ROWS;i++) {
 			 g.drawLine(i*Pixel_Size, 0, i*Pixel_Size, Screen_Height);
 		 }
 	}

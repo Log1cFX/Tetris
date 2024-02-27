@@ -16,7 +16,7 @@ public class Grid extends Block implements Update{
 		//System.out.println("added");
 	}
 	
-	public static void UpdateGrid(){
+	private static void UpdateGrid(){
 		CheckIfCollision();
 		CurrentBlock.getPosition().y+=1;
 	}
@@ -24,7 +24,7 @@ public class Grid extends Block implements Update{
 	public static void CheckIfCollision() {
 		Point[] Squares = getSquaresRelativeToGrid();
 		for(Point pos : Squares) {
-			if(pos.y+1>=Settings.ROWS || Placed_Blocks[pos.x][pos.y+1]!=null) {
+			if(pos.y+1>=Settings.COLUMNS || Placed_Blocks[pos.x][pos.y+1]!=null) {
 				PlaceBlocksOnGrid(Squares);
 				NewBlock();
 				break;

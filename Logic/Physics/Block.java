@@ -8,9 +8,9 @@ import Sprites.*;
 
 // all the info and methods for the current block
 public class Block {
-
+	
 	public static BlockBehavior CurrentBlock; // Current falling block
-	public static ColorPalette[][] Placed_Blocks = new ColorPalette[Settings.COLUMNS][Settings.ROWS]; // Grid[x][y]
+	public static ColorPalette[][] Placed_Blocks = new ColorPalette[Settings.ROWS][Settings.COLUMNS]; // Grid[x][y]
 	public static String[] Blocks = { "I-Block", "J-Block", "L-Block", "O-Block", "S-Block", "T-Block", "Z-Block" };
 	static Random rand = new Random();
 	
@@ -71,7 +71,7 @@ public class Block {
 	
 	// checks if is a valid position
 	private static boolean isValidPos(Point square) {
-		if (square.x < 0 || square.x >= Settings.COLUMNS || square.y>=Settings.ROWS 
+		if (square.x < 0 || square.x >= Settings.ROWS || square.y>=Settings.COLUMNS
 				|| Placed_Blocks[square.x][square.y] != null) {
 			return false;
 		}
