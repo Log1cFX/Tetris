@@ -1,7 +1,6 @@
 package Sprites;
 
 import java.awt.Point;
-import Physics.BlockBehavior;
 
 public class O_Block implements BlockBehavior{
 	

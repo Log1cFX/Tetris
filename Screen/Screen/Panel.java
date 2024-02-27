@@ -35,9 +35,9 @@ public class Panel extends JPanel implements KeyListener,GraphicsUpdate {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawGrid(g);
         drawBlock(g);
         drawPlacedBlocks(g);
+        drawGrid(g);
     }
     
     
@@ -54,6 +54,7 @@ public class Panel extends JPanel implements KeyListener,GraphicsUpdate {
 	}
 
 	private void drawGrid(Graphics g) {
+		g.setColor(Color.gray);
 		for(int i=0;i<Settings.ROWS;i++) {
 			g.drawLine(0, i*Pixel_Size, Screen_Width, i*Pixel_Size);
         }
