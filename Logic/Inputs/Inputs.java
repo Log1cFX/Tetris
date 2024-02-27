@@ -16,7 +16,7 @@ public class Inputs implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		boolean addKey = true;
-		for (KeyPressed key : KeysArray) { // Hello world
+		for (KeyPressed key : KeysArray) {
 			if (key.KeyCode == e.getKeyCode()) {
 				addKey = false;
 				break;
