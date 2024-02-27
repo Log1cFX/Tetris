@@ -14,6 +14,5 @@ public class ColorPalette{
 		case "O_Block" : color1 = Color.red;
 		break;
 		}
-		System.out.println(color1);
 	}
 }

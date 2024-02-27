@@ -18,7 +18,7 @@ public class Grid extends Block implements Update{
 	
 	public static void UpdateGrid(){
 		CheckIfCollision();
-		//CurrentBlock.getPosition().y+=1;
+		CurrentBlock.getPosition().y+=1;
 	}
 	
 	public static void CheckIfCollision() {

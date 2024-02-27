@@ -27,7 +27,7 @@ public class KeyPressed extends Inputs{
         };
 
         // Schedule the task for repeated execution every 150ms
-        executor.scheduleAtFixedRate(task, 0, 150, TimeUnit.MILLISECONDS);
+        executor.scheduleAtFixedRate(task, 0, ThrottleValueInMillis, TimeUnit.MILLISECONDS);
     }
 
     public void shutdown() {

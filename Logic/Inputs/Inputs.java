@@ -4,11 +4,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-import Physics.Move;
-
 public class Inputs implements KeyListener {
 
 	ArrayList<KeyPressed> KeysArray = new ArrayList<>(10);
+	int ThrottleValueInMillis = 100;
 
 	@Override
 	public void keyTyped(KeyEvent e) {
