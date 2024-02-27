@@ -37,6 +37,7 @@ public class Grid extends Block implements Update{
 			Placed_Blocks[pos.x][pos.y] = CurrentBlock.getColorPalette();
 		}
 	}
+	
 
 	@Override
 	public void start() {
