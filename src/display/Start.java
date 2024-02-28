@@ -1,4 +1,4 @@
-package Screen;
+package display;
 
 import logic.physics.PhysicsLoop;
 

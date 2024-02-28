@@ -15,7 +15,7 @@ public class PhysicsLoop extends PhysicsLoopCaster {
         new Grid();
     }
 
-    public static void startLoop() {
+    public void startLoop() {
         while (isRunning) {
         	
             long startTime = System.nanoTime();

@@ -1,4 +1,4 @@
-package Screen;
+package display;
 import javax.swing.JPanel;
 
 import logic.inputs.Inputs;

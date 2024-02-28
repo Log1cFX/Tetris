@@ -1,4 +1,4 @@
-package Screen;
+package display;
 import javax.swing.JFrame;
 
 public class Frame extends JFrame {
