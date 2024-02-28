@@ -17,20 +17,20 @@ public class Grid extends Block implements Update {
 	}
 
 	private static void UpdateGrid() {
-		CheckIfCollision();
+		System.out.println("Block Placed: "+CheckIfCollision());
 		CurrentBlock.getPosition().y += 1;
-		System.out.println(BurnLines());
 	}
 
-	public static void CheckIfCollision() {
+	public static boolean CheckIfCollision() {
 		Point[] Squares = getSquaresRelativeToGrid();
 		for (Point pos : Squares) {
 			if (pos.y + 1 >= Settings.COLUMNS || Placed_Blocks[pos.x][pos.y + 1] != null) {
 				PlaceBlocksOnGrid(Squares);
 				NewBlock();
-				break;
+				return true;
 			}
 		}
+		return false;
 	}
 
 	private static void PlaceBlocksOnGrid(Point[] Squares) {

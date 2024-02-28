@@ -30,6 +30,7 @@ public class Panel extends JPanel implements KeyListener,GraphicsUpdate {
         requestFocusInWindow();
         this.addKeyListener(this);
         PhysicsLoopCaster.addGraphicsUpdateLoop(this);
+        
     }
 
     @Override
@@ -81,6 +82,7 @@ public class Panel extends JPanel implements KeyListener,GraphicsUpdate {
     @Override
     public void keyPressed(KeyEvent e) {
     	input.keyPressed(e);
+    	settings.Animation.burnLines = true;
 
     }
 
@@ -92,6 +94,8 @@ public class Panel extends JPanel implements KeyListener,GraphicsUpdate {
 
 	@Override
 	public void Update() {
+		
+		System.out.println("animation: "+settings.Animation.burnLines);
 		repaint();
 	}
 }
