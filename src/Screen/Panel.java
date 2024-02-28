@@ -1,12 +1,12 @@
 package Screen;
 import javax.swing.JPanel;
 
-import Inputs.Inputs;
-import Physics.Block;
-import Physics.GraphicsUpdate;
-import Physics.PhysicsLoopCaster;
-import Physics.Update;
-import ScreenSettings.Settings;
+import logic.inputs.Inputs;
+import logic.physics.Block;
+import logic.physics.GraphicsUpdate;
+import logic.physics.PhysicsLoopCaster;
+import logic.physics.Update;
+import settings.Settings;
 
 import java.awt.Color;
 import java.awt.Dimension;

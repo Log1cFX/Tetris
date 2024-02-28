@@ -1,10 +1,10 @@
-package Physics;
+package logic.physics;
 
 import java.awt.Point;
 import java.util.Random;
 
-import ScreenSettings.Settings;
-import Sprites.*;
+import logic.sprites.*;
+import settings.Settings;
 
 // all the info and methods for the current block
 public class Block {
@@ -91,12 +91,13 @@ public class Block {
 
 	public static void NewBlock() {
 
-		int ranIndex = rand.nextInt(2);
+		int i = rand.nextInt(2);
+		int pos = rand.nextInt(Settings.ROWS-1);
 		System.out.println("new block");
-		switch(ranIndex) {
-		case 0 : CurrentBlock = new I_Block(ranIndex);
+		switch(i) {
+		case 0 : CurrentBlock = new I_Block(pos);
 		break;
-		case 1 : CurrentBlock = new O_Block(ranIndex);
+		case 1 : CurrentBlock = new O_Block(pos);
 		}
 		/*
 		 * switch (BlockNames[randomIndex]) { case "I-Block": CurrentBlock = new

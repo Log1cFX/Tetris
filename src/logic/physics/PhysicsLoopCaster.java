@@ -1,4 +1,4 @@
-package Physics;
+package logic.physics;
 
 import java.util.ArrayList;
 

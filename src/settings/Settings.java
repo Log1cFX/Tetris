@@ -1,4 +1,4 @@
-package ScreenSettings;
+package settings;
 
 public class Settings {
 	public static final int SCREEN_HEIGHT = 800;
@@ -7,5 +7,7 @@ public class Settings {
 	public static final int ROWS = 10;
 	public static final int PIXEL_SIZE = SCREEN_HEIGHT/COLUMNS;
 	public static final int FPS = 100;
-	public static int BlockSpeedInMillis = 500;
+	public static final int AnimationSpeedInMillis = 10;
+	public static int BlockSpeedInMillis = 50;
+	
 }

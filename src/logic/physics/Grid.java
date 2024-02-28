@@ -1,9 +1,9 @@
-package Physics;
+package logic.physics;
 
 import java.awt.Point;
 
-import ScreenSettings.Settings;
-import Sprites.ColorPalette;
+import logic.sprites.ColorPalette;
+import settings.Settings;
 
 // all the info and methods for the grid
 public class Grid extends Block implements Update {
@@ -52,7 +52,7 @@ public class Grid extends Block implements Update {
 				}
 			}
 		}
-		ColorPalette[][] newGrid = new ColorPalette[Settings.ROWS][Settings.COLUMNS];
+		
 		boolean temp1 = false;
 		for (int i = 0; i < isFullLine.length; i++) {
 			if (isFullLine[i] == true)
@@ -61,7 +61,8 @@ public class Grid extends Block implements Update {
 		if (!temp1) {
 			return false;
 		}
-
+		
+		ColorPalette[][] newGrid = new ColorPalette[Settings.ROWS][Settings.COLUMNS];
 		int i = 19;
 		for (int columns = Settings.COLUMNS - 2; columns >= 0; columns--) {
 			if (!isFullLine[columns]) {

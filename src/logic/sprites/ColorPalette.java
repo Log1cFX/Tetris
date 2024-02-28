@@ -1,4 +1,4 @@
-package Sprites;
+package logic.sprites;
 
 import java.awt.Color;
 

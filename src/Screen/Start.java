@@ -1,6 +1,6 @@
 package Screen;
 
-import Physics.PhysicsLoop;
+import logic.physics.PhysicsLoop;
 
 public class Start {
 	public static void main(String[] args) {

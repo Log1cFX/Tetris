@@ -1,6 +1,6 @@
-package Physics;
+package logic.physics;
 
-import ScreenSettings.Settings;
+import settings.Settings;
 
 public class PhysicsLoop extends PhysicsLoopCaster {
 

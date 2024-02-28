@@ -1,4 +1,4 @@
-package Inputs;
+package logic.inputs;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

@@ -1,8 +1,8 @@
-package Inputs;
+package logic.inputs;
 
 import java.awt.Point;
 
-import Physics.Block;
+import logic.physics.Block;
 
 // Performs the action
 public class Move extends Block{
