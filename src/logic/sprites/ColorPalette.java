@@ -9,10 +9,15 @@ public class ColorPalette{
 	ColorPalette(String BlockName){
 		System.out.println(BlockName);
 		switch(BlockName) {
-		case "I_Block" : color1 = Color.blue;
+		case "I_Block" : color1 = new Color(173, 216, 230);
 		break;
 		case "O_Block" : color1 = Color.red;
 		break;
+		case "J_Block" : color1 = new Color(0,0,139);
+		break;
+		case "L_Block" : color1 = Color.orange;
+		break;
+		case "T_Block" : color1 = Color.magenta;
 		}
 	}
 }

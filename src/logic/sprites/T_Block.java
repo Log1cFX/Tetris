@@ -2,18 +2,18 @@ package logic.sprites;
 
 import java.awt.Point;
 
-public class J_Block implements BlockBehavior {
-	public static String[] Rot1 = { "0,-1", "0,0", "0,1", "-1,1" };
-	public static String[] Rot2 = { "-1,-1", "-1,0", "0,0", "1,0" };
-	public static String[] Rot3 = { "1,-1", "0,-1","0,0","0,1"};
-	public static String[] Rot4 = { "-1,0", "0,0","1,0","1,1"};
+public class T_Block implements BlockBehavior{
+	public static String[] Rot1 = { "0,-1","-1,0","0,0","1,0" };
+	public static String[] Rot2 = { "0,-1","0,0","1,0","0,1" };
+	public static String[] Rot3 = { "-1,0", "0,0","1,0","0,1"};
+	public static String[] Rot4 = { "0,-1","-1,0","0,0","0,1"};
 	int rotation = 1;
 	static int maxRotation = 4;
 	ColorPalette colorPalette = new ColorPalette(this.getClass().getSimpleName());
 
 	Point Pos = new Point(0, 0);
 
-	public J_Block(int Xpos) {
+	public T_Block(int Xpos) {
 		Pos.x = Xpos;
 	}
 
@@ -67,5 +67,4 @@ public class J_Block implements BlockBehavior {
 	public ColorPalette getColorPalette() {
 		return colorPalette;
 	}
-
 }
