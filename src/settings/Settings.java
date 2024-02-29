@@ -8,5 +8,4 @@ public class Settings {
 	public static final int PIXEL_SIZE = SCREEN_HEIGHT / COLUMNS;
 	public static final int FPS = 100;
 	public static volatile int BlockSpeedInMillis = 50;
-
 }
