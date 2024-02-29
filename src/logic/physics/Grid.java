@@ -17,7 +17,8 @@ public class Grid extends Block implements Update {
 	}
 
 	private static void UpdateGrid() {
-		System.out.println("Block Placed: "+CheckIfCollision());
+		CheckIfCollision();
+		BurnLines();
 		CurrentBlock.getPosition().y += 1;
 	}
 
