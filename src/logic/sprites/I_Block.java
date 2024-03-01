@@ -3,8 +3,10 @@ package logic.sprites;
 import java.awt.Point;
 
 public class I_Block implements BlockBehavior {
-	public static String[] Rot1 = { "0,-1", "0,0", "0,1", "0,2" };
-	public static String[] Rot2 = { "-1,0", "0,0", "1,0", "2,0" };
+	public static String[] Rot1 = { "-1,0", "0,0", "1,0", "2,0" };
+	public static String[] Rot2 = { "0,-1", "0,0", "0,1", "0,2" };
+	public static String[] Rot3 = { "-1,1", "0,1", "1,1", "2,1" };
+	public static String[] Rot4 = { "1,-1", "1,0", "1,1", "1,2" };
 	int rotation = 1;
 	static int maxRotation = 2;
 	ColorPalette colorPalette = new ColorPalette(this.getClass().getSimpleName());
@@ -48,6 +50,10 @@ public class I_Block implements BlockBehavior {
 			return Rot1;
 		case 2:
 			return Rot2;
+		case 3:
+			return Rot3;
+		case 4:
+			return Rot4;
 		}
 		return null;
 	}

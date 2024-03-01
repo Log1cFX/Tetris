@@ -1,10 +1,11 @@
 package logic.physics;
 
+import display.Frame;
 import settings.Settings;
 
 public class PhysicsLoop extends PhysicsLoopCaster {
 
-    private static final int FPS = Settings.FPS;
+    private static final int FPS = Settings.Screen.FPS;
     private static final long TARGET_TIME = 1000 / FPS;
     public static boolean isRunning;
     
@@ -12,7 +13,7 @@ public class PhysicsLoop extends PhysicsLoopCaster {
         isRunning = true;
         System.out.println(getClass().getSimpleName());
         System.out.println();
-        new Grid();
+        new Thread(()->{new Grid();}).start();
     }
 
     public void startLoop() {

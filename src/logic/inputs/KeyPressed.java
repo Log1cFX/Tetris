@@ -28,7 +28,7 @@ public class KeyPressed extends Inputs {
 				shutdown();
 			}
 		};
-		if (KeyCode != Settings.TURN_CLOCKWISE && KeyCode != Settings.TURN_COUNTER_CLOCKWISE) {
+		if (KeyCode != Settings.Controls.TURN_CLOCKWISE && KeyCode != Settings.Controls.TURN_COUNTER_CLOCKWISE) {
 			executor.scheduleAtFixedRate(task, 0, ThrottleValueInMillis, TimeUnit.MILLISECONDS);
 		}
 		else {

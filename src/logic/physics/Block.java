@@ -10,7 +10,7 @@ import settings.Settings;
 public class Block {
 	
 	public static BlockBehavior CurrentBlock; // Current falling block
-	public static ColorPalette[][] Placed_Blocks = new ColorPalette[Settings.ROWS][Settings.COLUMNS]; // Grid[x][y]
+	public static volatile ColorPalette[][] Placed_Blocks = new ColorPalette[Settings.Screen.ROWS][Settings.Screen.COLUMNS]; // Grid[x][y]
 	public static String[] Blocks = { "I-Block", "J-Block", "L-Block", "O-Block", "S-Block", "T-Block", "Z-Block" };
 	static Random rand = new Random();
 	
@@ -70,7 +70,7 @@ public class Block {
 	
 	// checks if is a valid position
 	private static boolean isValidPos(Point square) {
-		if (square.x < 0 || square.x >= Settings.ROWS || square.y>=Settings.COLUMNS
+		if (square.x < 0 || square.x >= Settings.Screen.ROWS || square.y>=Settings.Screen.COLUMNS
 				|| Placed_Blocks[square.x][square.y] != null) {
 			return false;
 		}
@@ -92,7 +92,7 @@ public class Block {
 	public static void NewBlock() {
 
 		int i = rand.nextInt(6);
-		int pos = rand.nextInt(1,Settings.ROWS-1);
+		int pos = rand.nextInt(1,Settings.Screen.ROWS-1);
 		System.out.println("new block");
 		switch(i) {
 		case 0 : CurrentBlock = new I_Block(pos);
@@ -110,15 +110,5 @@ public class Block {
 		case 6 : CurrentBlock = new Z_Block(pos);
 		break;
 		}
-		/*
-		 * switch (BlockNames[randomIndex]) { case "I-Block": CurrentBlock = new
-		 * I_Block(randomPosX); break; case "J-Block": CurrentBlock = new
-		 * J_Block(randomPosX); break; case "L-Block": CurrentBlock = new
-		 * L_Block(randomPosX); break; case "O-Block": CurrentBlock = new
-		 * O_Block(randomPosX); break; case "S-Block": CurrentBlock = new
-		 * S_Block(randomPosX); break; case "T-Block": CurrentBlock = new
-		 * T_Block(randomPosX); break; case "Z-Block": CurrentBlock = new
-		 * Z_Block(randomPosX); break; }
-		 */
 	}
 }

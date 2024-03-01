@@ -49,19 +49,19 @@ public class Inputs implements KeyListener {
 
 	protected void InputHandler(int KeyCode) {
 		switch (KeyCode) {
-		case Settings.DOWN:
+		case Settings.Controls.DOWN:
 			Move.down();
 			break;
-		case Settings.RIGHT:
+		case Settings.Controls.RIGHT:
 			Move.right();
 			break;
-		case Settings.LEFT:
+		case Settings.Controls.LEFT:
 			Move.left();
 			break;
-		case Settings.TURN_CLOCKWISE:
+		case Settings.Controls.TURN_CLOCKWISE:
 			Move.turnClock();
 			break;
-		case Settings.TURN_COUNTER_CLOCKWISE:
+		case Settings.Controls.TURN_COUNTER_CLOCKWISE:
 			Move.turnCounterClock();
 			break;
 		}
