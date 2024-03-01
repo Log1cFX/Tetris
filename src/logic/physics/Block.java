@@ -91,7 +91,7 @@ public class Block {
 
 	public static void NewBlock() {
 
-		int i = rand.nextInt(5);
+		int i = rand.nextInt(6);
 		int pos = rand.nextInt(1,Settings.ROWS-1);
 		System.out.println("new block");
 		switch(i) {
@@ -104,6 +104,11 @@ public class Block {
 		case 3 : CurrentBlock = new J_Block(pos);
 		break;
 		case 4 : CurrentBlock = new T_Block(pos);
+		break;
+		case 5 : CurrentBlock = new S_Block(pos);
+		break;
+		case 6 : CurrentBlock = new Z_Block(pos);
+		break;
 		}
 		/*
 		 * switch (BlockNames[randomIndex]) { case "I-Block": CurrentBlock = new

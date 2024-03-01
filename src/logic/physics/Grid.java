@@ -16,13 +16,13 @@ public class Grid extends Block implements Update {
 		// System.out.println("added");
 	}
 
-	private static void UpdateGrid() {
+	private void UpdateGrid() {
 		CheckIfCollision();
 		BurnLines();
 		CurrentBlock.getPosition().y += 1;
 	}
 
-	public static boolean CheckIfCollision() {
+	public boolean CheckIfCollision() {
 		Point[] Squares = getSquaresRelativeToGrid();
 		for (Point pos : Squares) {
 			if (pos.y + 1 >= Settings.COLUMNS || Placed_Blocks[pos.x][pos.y + 1] != null) {
@@ -34,13 +34,13 @@ public class Grid extends Block implements Update {
 		return false;
 	}
 
-	private static void PlaceBlocksOnGrid(Point[] Squares) {
+	private void PlaceBlocksOnGrid(Point[] Squares) {
 		for (Point pos : Squares) {
 			Placed_Blocks[pos.x][pos.y] = CurrentBlock.getColorPalette();
 		}
 	}
 
-	private static boolean BurnLines() {
+	private boolean BurnLines() {
 		boolean[] isFullLine = new boolean[Settings.COLUMNS];
 		for (int i = 0; i < isFullLine.length; i++) {
 			isFullLine[i] = true;
@@ -75,6 +75,14 @@ public class Grid extends Block implements Update {
 		}
 		Placed_Blocks = newGrid;
 		return true;
+	}
+	
+	private void CheckIfGameOver() {
+		for(Point p : Block.getSquaresRelativeToGrid()) {
+			if(p.y>0) {
+				
+			}
+		}
 	}
 
 	@Override

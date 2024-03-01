@@ -4,6 +4,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+import settings.Settings;
+
 public class Inputs implements KeyListener {
 
 	ArrayList<KeyPressed> KeysArray = new ArrayList<>(10);
@@ -16,9 +18,10 @@ public class Inputs implements KeyListener {
 	// creates new instance of KeyPressed
 	@Override
 	public void keyPressed(KeyEvent e) {
+		int KeyCode = e.getKeyCode();
 		boolean addKey = true;
 		for (KeyPressed key : KeysArray) {
-			if (key.KeyCode == e.getKeyCode()) {
+			if (key.KeyCode == KeyCode) {
 				addKey = false;
 				break;
 			}
@@ -46,19 +49,19 @@ public class Inputs implements KeyListener {
 
 	protected void InputHandler(int KeyCode) {
 		switch (KeyCode) {
-		case KeyEvent.VK_DOWN:
+		case Settings.DOWN:
 			Move.down();
 			break;
-		case KeyEvent.VK_RIGHT:
+		case Settings.RIGHT:
 			Move.right();
 			break;
-		case KeyEvent.VK_LEFT:
+		case Settings.LEFT:
 			Move.left();
 			break;
-		case KeyEvent.VK_X:
+		case Settings.TURN_CLOCKWISE:
 			Move.turnClock();
 			break;
-		case KeyEvent.VK_W:
+		case Settings.TURN_COUNTER_CLOCKWISE:
 			Move.turnCounterClock();
 			break;
 		}

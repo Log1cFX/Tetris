@@ -18,6 +18,11 @@ public class ColorPalette{
 		case "L_Block" : color1 = Color.orange;
 		break;
 		case "T_Block" : color1 = Color.magenta;
+		break;
+		case "S_Block" : color1 = Color.green;
+		break;
+		case "Z_Block" : color1 = Color.red;
+		break;
 		}
 	}
 }
