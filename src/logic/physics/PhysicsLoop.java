@@ -13,7 +13,7 @@ public class PhysicsLoop extends PhysicsLoopCaster {
         isRunning = true;
         System.out.println(getClass().getSimpleName());
         System.out.println();
-        new Thread(()->{new Grid();}).start();
+        new Grid();
     }
 
     public void startLoop() {

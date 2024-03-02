@@ -2,23 +2,34 @@ package logic.inputs;
 
 import java.awt.Point;
 
-import logic.physics.Block;
+import logic.physics.BlockManager;
+import logic.physics.Grid;
 
 // Performs the action
-public class Move extends Block{
-	public static void down() {
-		performTranslation(new Point(0,1));
+public class Move {
+	BlockManager blockManager;
+
+	public Move(BlockManager blockManager) {
+		this.blockManager = blockManager;
 	}
-	public static void right() {
-		performTranslation(new Point(1,0));
+
+	public void down() {
+		blockManager.performTranslation(new Point(0, 1));
 	}
-	public static void left() {
-		performTranslation(new Point(-1,0));
+
+	public void right() {
+		blockManager.performTranslation(new Point(1, 0));
 	}
-	public static void turnClock() {
-		performRotation(1);
+
+	public void left() {
+		blockManager.performTranslation(new Point(-1, 0));
 	}
-	public static void turnCounterClock() {
-		performRotation(0);
+
+	public void turnClock() {
+		blockManager.performRotation(1);
+	}
+
+	public void turnCounterClock() {
+		blockManager.performRotation(0);
 	}
 }

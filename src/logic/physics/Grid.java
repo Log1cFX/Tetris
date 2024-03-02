@@ -1,49 +1,66 @@
 package logic.physics;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
+import logic.inputs.Inputs;
 import logic.sprites.ColorPalette;
 import settings.CurrentGameState;
 import settings.Settings;
 
 // all the info and methods for the grid
-public class Grid extends Block implements Update {
+public class Grid implements Update {
 
 	long startUpdateTime = System.nanoTime();
 	long finalUpdateTime;
 	long startWaitTime;
 	long finalWaitTime;
 	volatile boolean waiting = false;
+	public static volatile Square[][] grid = new Square[Settings.Screen.ROWS][Settings.Screen.COLUMNS];
+	// Grid[x][y], !null means that there is a square
+	protected BlockManager blockManager;
 
 	Grid() {
+		blockManager = new BlockManager(this);
+		Inputs.addBlockManager(blockManager);
 		PhysicsLoopCaster.addPhysicsUpdateLoop(this);
-		// System.out.println("added");
 	}
 
 	private void UpdateGrid() {
 		CheckIfCollision();
 		BurnLines();
+		// adding squares to settings.CurrentGameState.placed_Squares
+		ArrayList<Square> newGrid = new ArrayList<>();
+		for (Square[] column : grid) {
+			for (Square s : column) {
+				if (s != null) {
+					newGrid.add(s);
+				}
+			}
+		}
+		CurrentGameState.placedSquares.set(newGrid);
 	}
 
 	public boolean CheckIfCollision() {
-		Point[] Squares = getSquaresRelativeToGrid();
-		for (Point pos : Squares) {
-			if (pos.y + 1 >= Settings.Screen.COLUMNS || Placed_Blocks[pos.x][pos.y + 1] != null) {
+		Square[] squares = blockManager.getSquaresRelativeToGrid();
+		for (Square square : squares) {
+			if (square.location.y + 1 >= Settings.Screen.COLUMNS
+					|| grid[square.location.x][square.location.y + 1] != null) {
 				Wait();
-				if(!waiting) {
-					PlaceBlocksOnGrid(Squares);
-					NewBlock();
+				if (!waiting) {
+					PlaceBlocksOnGrid(squares);
+					blockManager.NewBlock();
 				}
 				return true;
 			}
 		}
-		CurrentBlock.getPosition().y += 1;
+		blockManager.currentBlock.getPosition().y += 1;
 		return false;
 	}
 
-	private void PlaceBlocksOnGrid(Point[] Squares) {
-		for (Point pos : Squares) {
-			Placed_Blocks[pos.x][pos.y] = CurrentBlock.getColorPalette();
+	private void PlaceBlocksOnGrid(Square[] Squares) {
+		for (Square square : Squares) {
+			grid[square.location.x][square.location.y] = square;
 		}
 	}
 
@@ -54,7 +71,7 @@ public class Grid extends Block implements Update {
 		}
 		for (int columns = 0; columns < Settings.Screen.COLUMNS; columns++) {
 			for (int rows = 0; rows < Settings.Screen.ROWS; rows++) {
-				if (Placed_Blocks[rows][columns] == null) {
+				if (grid[rows][columns] == null) {
 					isFullLine[columns] = false;
 					break;
 				}
@@ -70,43 +87,55 @@ public class Grid extends Block implements Update {
 			return false;
 		}
 
-		ColorPalette[][] newGrid = new ColorPalette[Settings.Screen.ROWS][Settings.Screen.COLUMNS];
+		Square[][] newGrid = new Square[Settings.Screen.ROWS][Settings.Screen.COLUMNS];
 		int i = 19;
 		for (int columns = Settings.Screen.COLUMNS - 1; columns >= 0; columns--) {
 			if (!isFullLine[columns]) {
 				for (int rows = 0; rows < Settings.Screen.ROWS; rows++) {
-					newGrid[rows][i] = Placed_Blocks[rows][columns];
+
+					if (grid[rows][columns] != null) {
+						grid[rows][columns].location = new Point(rows,i);
+					}
+					newGrid[rows][i] = grid[rows][columns];
 				}
 				i--;
 			}
 		}
-		Placed_Blocks = newGrid;
+		grid = newGrid;
 		return true;
 	}
 
 	public void Wait() {
 		finalWaitTime = System.nanoTime();
-		if(waiting!=true) {
+		if (waiting != true) {
 			waiting = true;
 			startWaitTime = System.nanoTime();
-		}
-		else if (finalWaitTime-startWaitTime/1000000>=Settings.Animations.WAIT_AFTER_COLLISION_IN_MILLIS) {
+		} else if (finalWaitTime - startWaitTime / 1000000 >= Settings.Animations.WAIT_AFTER_COLLISION_IN_MILLIS) {
 			System.out.println("g");
 			waiting = false;
 		}
 	}
 
-	private void CheckIfGameOver() {
-		for (Point p : Block.getSquaresRelativeToGrid()) {
-			if (p.y > 0) {
+	private void GameIsOver() {
+		for (Square square : blockManager.getSquaresRelativeToGrid()) {
+			if (square.location.y > 0) {
 				CurrentGameState.isOver = true;
 			}
 		}
 	}
 
+	// checks if is a valid position
+	protected boolean isValidPos(Point square) {
+		if (square.x < 0 || square.x >= Settings.Screen.ROWS || square.y >= Settings.Screen.COLUMNS
+				|| grid[square.x][square.y] != null) {
+			return false;
+		} else
+			return true;
+	}
+
 	@Override
 	public void start() {
-		NewBlock();
+		blockManager.NewBlock();
 	}
 
 	@Override
@@ -116,5 +145,10 @@ public class Grid extends Block implements Update {
 			UpdateGrid();
 			startUpdateTime = System.nanoTime();
 		}
+		ArrayList<Square> currentBlock = new ArrayList<Square>();
+		for (Square square : blockManager.getSquaresRelativeToGrid()) {
+			currentBlock.add(square);
+		}
+		CurrentGameState.currentBlock.set(currentBlock);
 	}
 }

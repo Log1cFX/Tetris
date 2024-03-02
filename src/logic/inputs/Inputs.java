@@ -4,12 +4,27 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+import javax.swing.JComponent;
+
+import logic.physics.BlockManager;
 import settings.Settings;
 
 public class Inputs implements KeyListener {
 
-	ArrayList<KeyPressed> KeysArray = new ArrayList<>(10);
+	ArrayList<PressedKey> KeysArray = new ArrayList<>(10);
 	int ThrottleValueInMillis = 100;
+	private static Move move;
+
+	public Inputs(JComponent component) {
+		if (!(component instanceof KeyListener)) {
+			System.out.println("JComponent doesn't extend a KeyListener");
+			System.out.println("Fix this plz");
+		}
+	}
+	
+	public static void addBlockManager(BlockManager blockManager) {
+		move = new Move(blockManager);
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -20,7 +35,7 @@ public class Inputs implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		int KeyCode = e.getKeyCode();
 		boolean addKey = true;
-		for (KeyPressed key : KeysArray) {
+		for (PressedKey key : KeysArray) {
 			if (key.KeyCode == KeyCode) {
 				addKey = false;
 				break;
@@ -29,7 +44,7 @@ public class Inputs implements KeyListener {
 		// checks all the existing instances of keyPressed to see if there is an
 		// instance with the same button
 		if (addKey)
-			KeysArray.add(new KeyPressed(e.getKeyCode()));
+			KeysArray.add(new PressedKey(e.getKeyCode(),this));
 		// adds instance of keyPressed with the key code of the current button
 	}
 
@@ -50,19 +65,19 @@ public class Inputs implements KeyListener {
 	protected void InputHandler(int KeyCode) {
 		switch (KeyCode) {
 		case Settings.Controls.DOWN:
-			Move.down();
+			move.down();
 			break;
 		case Settings.Controls.RIGHT:
-			Move.right();
+			move.right();
 			break;
 		case Settings.Controls.LEFT:
-			Move.left();
+			move.left();
 			break;
 		case Settings.Controls.TURN_CLOCKWISE:
-			Move.turnClock();
+			move.turnClock();
 			break;
 		case Settings.Controls.TURN_COUNTER_CLOCKWISE:
-			Move.turnCounterClock();
+			move.turnCounterClock();
 			break;
 		}
 	}

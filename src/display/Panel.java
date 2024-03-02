@@ -3,10 +3,12 @@ package display;
 import javax.swing.JPanel;
 
 import logic.inputs.Inputs;
-import logic.physics.Block;
+import logic.physics.BlockManager;
 import logic.physics.GraphicsUpdate;
 import logic.physics.PhysicsLoopCaster;
+import logic.physics.Square;
 import logic.physics.Update;
+import settings.CurrentGameState;
 import settings.Settings;
 
 import java.awt.Color;
@@ -18,7 +20,7 @@ import java.awt.event.KeyListener;
 
 public class Panel extends JPanel implements KeyListener, GraphicsUpdate {
 
-	Inputs input = new Inputs();
+	Inputs input = new Inputs(this);
 
 	Panel() {
 		// System.out.println(getClass().getSimpleName());
@@ -34,41 +36,35 @@ public class Panel extends JPanel implements KeyListener, GraphicsUpdate {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		drawBlock(g);
-		drawPlacedBlocks(g);
+		drawSquares(g);
 		drawGrid(g);
 	}
 
-	private void drawPlacedBlocks(Graphics g) {
-		for (int i = 0; i < Settings.Screen.COLUMNS; i++) {
-			for (int j = 0; j < Settings.Screen.ROWS; j++) {
-				if (Block.Placed_Blocks[j][i] != null) {
-					g.setColor(Block.Placed_Blocks[j][i].color1);
-					g.fillRect(j * Settings.Screen.PIXEL_SIZE, i * Settings.Screen.PIXEL_SIZE,
-							Settings.Screen.PIXEL_SIZE, Settings.Screen.PIXEL_SIZE);
-				}
+	private boolean drawSquares(Graphics g) {
+		if (CurrentGameState.placedSquares.get() != null) {
+			for (Square square : CurrentGameState.placedSquares.get()) {
+				g.setColor(square.color.color1);
+				g.fillRect(square.location.x * Settings.Screen.UNIT_SIZE, square.location.y * Settings.Screen.UNIT_SIZE,
+						Settings.Screen.UNIT_SIZE, Settings.Screen.UNIT_SIZE);
 			}
 		}
+		if (CurrentGameState.currentBlock.get() != null) {
+			for (Square square : CurrentGameState.currentBlock.get()) {
+				g.setColor(square.color.color1);
+				g.fillRect(square.location.x * Settings.Screen.UNIT_SIZE, square.location.y * Settings.Screen.UNIT_SIZE,
+						Settings.Screen.UNIT_SIZE, Settings.Screen.UNIT_SIZE);
+			}
+		}
+		return true;
 	}
 
 	private void drawGrid(Graphics g) {
 		g.setColor(Color.gray);
 		for (int i = 0; i < Settings.Screen.COLUMNS; i++) {
-			g.drawLine(0, i * Settings.Screen.PIXEL_SIZE, Settings.Screen.SCREEN_WIDTH, i * Settings.Screen.PIXEL_SIZE);
+			g.drawLine(0, i * Settings.Screen.UNIT_SIZE, Settings.Screen.SCREEN_WIDTH, i * Settings.Screen.UNIT_SIZE);
 		}
 		for (int i = 0; i < Settings.Screen.ROWS; i++) {
-			g.drawLine(i * Settings.Screen.PIXEL_SIZE, 0, i * Settings.Screen.PIXEL_SIZE,
-					Settings.Screen.SCREEN_HEIGHT);
-		}
-	}
-
-	private void drawBlock(Graphics g) {
-		if (Block.CurrentBlock != null) {
-			g.setColor(Block.CurrentBlock.getColorPalette().color1);
-			for (Point p : Block.getSquaresRelativeToGrid()) {
-				g.fillRect(p.x * Settings.Screen.PIXEL_SIZE, p.y * Settings.Screen.PIXEL_SIZE,
-						Settings.Screen.PIXEL_SIZE, Settings.Screen.PIXEL_SIZE); // draw squares on screen
-			}
+			g.drawLine(i * Settings.Screen.UNIT_SIZE, 0, i * Settings.Screen.UNIT_SIZE, Settings.Screen.SCREEN_HEIGHT);
 		}
 	}
 

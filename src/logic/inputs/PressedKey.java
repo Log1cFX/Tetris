@@ -7,14 +7,16 @@ import java.util.concurrent.TimeUnit;
 import settings.Settings;
 
 // this a Timer, that calls the inputHandler method till it's shutdown
-public class KeyPressed extends Inputs {
+public class PressedKey {
 	private final ScheduledExecutorService executor;
 	int KeyCode;
 	boolean KeyReleased = false;
 	private boolean firstCycle = true;
+	private Inputs inputs;
 
-	public KeyPressed(int KeyCode) {
+	public PressedKey(int KeyCode, Inputs inputs) {
 		this.KeyCode = KeyCode;
+		this.inputs = inputs;
 		// Initialize the ScheduledExecutorService
 		executor = Executors.newScheduledThreadPool(1);
 		startPeriodicTask();
@@ -23,13 +25,13 @@ public class KeyPressed extends Inputs {
 	private void startPeriodicTask() {
 		Runnable task = () -> {
 			if (!KeyReleased) {
-				InputHandler(KeyCode);
+				inputs.InputHandler(KeyCode);
 			} else {
 				shutdown();
 			}
 		};
 		if (KeyCode != Settings.Controls.TURN_CLOCKWISE && KeyCode != Settings.Controls.TURN_COUNTER_CLOCKWISE) {
-			executor.scheduleAtFixedRate(task, 0, ThrottleValueInMillis, TimeUnit.MILLISECONDS);
+			executor.scheduleAtFixedRate(task, 0, inputs.ThrottleValueInMillis, TimeUnit.MILLISECONDS);
 		}
 		else {
 			task.run();
