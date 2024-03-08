@@ -20,7 +20,9 @@ public class PhysicsLoop extends PhysicsLoopCaster {
         while (isRunning) {
         	
             long startTime = System.nanoTime();
+            
             update();  // Updates every single frame
+            
             long elapsedTime = System.nanoTime() - startTime;
             
             long sleepTime = TARGET_TIME - elapsedTime/1000000;

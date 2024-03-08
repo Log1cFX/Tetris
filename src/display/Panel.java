@@ -38,6 +38,7 @@ public class Panel extends JPanel implements KeyListener, GraphicsUpdate {
 		super.paintComponent(g);
 		drawSquares(g);
 		drawGrid(g);
+		System.out.println("PaintComponent: "+Thread.currentThread());
 	}
 
 	private boolean drawSquares(Graphics g) {

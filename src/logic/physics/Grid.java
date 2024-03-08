@@ -40,7 +40,8 @@ public class Grid implements Update {
 		}
 		CurrentGameState.placedSquares.set(newGrid);
 	}
-
+	
+	// checks if collision under the block
 	public boolean CheckIfCollision() {
 		Square[] squares = blockManager.getSquaresRelativeToGrid();
 		for (Square square : squares) {
@@ -48,7 +49,7 @@ public class Grid implements Update {
 					|| grid[square.location.x][square.location.y + 1] != null) {
 				Wait();
 				if (!waiting) {
-					PlaceBlocksOnGrid(squares);
+					PlaceBlockOnGrid(squares);
 					blockManager.NewBlock();
 				}
 				return true;
@@ -58,7 +59,7 @@ public class Grid implements Update {
 		return false;
 	}
 
-	private void PlaceBlocksOnGrid(Square[] Squares) {
+	private void PlaceBlockOnGrid(Square[] Squares) {
 		for (Square square : Squares) {
 			grid[square.location.x][square.location.y] = square;
 		}
@@ -77,7 +78,8 @@ public class Grid implements Update {
 				}
 			}
 		}
-
+		// checks if there are any lines to burn
+		
 		boolean temp1 = false;
 		for (int i = 0; i < isFullLine.length; i++) {
 			if (isFullLine[i] == true)
@@ -86,6 +88,7 @@ public class Grid implements Update {
 		if (!temp1) {
 			return false;
 		}
+		// if no lines need to be burned return false
 
 		Square[][] newGrid = new Square[Settings.Screen.ROWS][Settings.Screen.COLUMNS];
 		int i = 19;
@@ -103,6 +106,7 @@ public class Grid implements Update {
 		}
 		grid = newGrid;
 		return true;
+		// 
 	}
 
 	public void Wait() {

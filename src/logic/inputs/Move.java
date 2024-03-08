@@ -9,7 +9,7 @@ import logic.physics.Grid;
 public class Move {
 	BlockManager blockManager;
 
-	public Move(BlockManager blockManager) {
+	Move(BlockManager blockManager) {
 		this.blockManager = blockManager;
 	}
 
