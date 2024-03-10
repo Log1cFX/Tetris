@@ -1,5 +1,6 @@
 package display;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import logic.inputs.Inputs;
@@ -13,6 +14,7 @@ import settings.Settings;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -21,14 +23,21 @@ import java.awt.event.KeyListener;
 public class Panel extends JPanel implements KeyListener, GraphicsUpdate {
 
 	Inputs input = new Inputs(this);
+    public static JLabel scoreDisplay = new JLabel(CurrentGameState.score);
 
 	Panel() {
 		// System.out.println(getClass().getSimpleName());
+		this.add(scoreDisplay);
 		this.setBackground(Color.BLACK);
 		this.setPreferredSize(new Dimension(Settings.Screen.SCREEN_WIDTH, Settings.Screen.SCREEN_HEIGHT));
 		this.setFocusable(true);
 		requestFocusInWindow();
 		this.addKeyListener(this);
+		scoreDisplay.setFont(new Font("MV Boli",Font.PLAIN,50));
+		scoreDisplay.setBackground(Color.white);
+		scoreDisplay.setForeground(Color.white);
+		scoreDisplay.setHorizontalAlignment(JLabel.RIGHT);
+		this.add(scoreDisplay);
 		PhysicsLoopCaster.addGraphicsUpdateLoop(this);
 
 	}

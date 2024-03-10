@@ -92,6 +92,7 @@ public class Grid implements Update {
 
 		Square[][] newGrid = new Square[Settings.Screen.ROWS][Settings.Screen.COLUMNS];
 		int i = 19;
+		int addScore = 100;
 		for (int columns = Settings.Screen.COLUMNS - 1; columns >= 0; columns--) {
 			if (!isFullLine[columns]) {
 				for (int rows = 0; rows < Settings.Screen.ROWS; rows++) {
@@ -105,6 +106,12 @@ public class Grid implements Update {
 			}
 		}
 		grid = newGrid;
+		
+		int tempScore = Integer.parseInt(CurrentGameState.score);
+		tempScore += addScore;
+		CurrentGameState.score = Integer.toString(tempScore);
+		display.Panel.scoreDisplay.setText(CurrentGameState.score);
+		
 		return true;
 		// 
 	}
