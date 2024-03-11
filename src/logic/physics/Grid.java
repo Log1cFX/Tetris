@@ -107,10 +107,7 @@ public class Grid implements Update {
 		}
 		grid = newGrid;
 		
-		int tempScore = Integer.parseInt(CurrentGameState.score);
-		tempScore += addScore;
-		CurrentGameState.score = Integer.toString(tempScore);
-		display.Panel.scoreDisplay.setText(CurrentGameState.score);
+		CurrentGameState.score += addScore;
 		
 		return true;
 		// 

@@ -88,7 +88,7 @@ public class BlockManager {
 	protected void NewBlock() {
 
 		int i = rand.nextInt(6);
-		int pos = rand.nextInt(1,Settings.Screen.ROWS-1);
+		int pos = rand.nextInt(1,Settings.Screen.ROWS-2);
 		System.out.println("new block");
 		switch(i) {
 		case 0 : currentBlock = new I_Block(pos);

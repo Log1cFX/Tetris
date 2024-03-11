@@ -15,6 +15,7 @@ import settings.Settings;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -23,21 +24,14 @@ import java.awt.event.KeyListener;
 public class Panel extends JPanel implements KeyListener, GraphicsUpdate {
 
 	Inputs input = new Inputs(this);
-    public static JLabel scoreDisplay = new JLabel(CurrentGameState.score);
 
 	Panel() {
 		// System.out.println(getClass().getSimpleName());
-		this.add(scoreDisplay);
 		this.setBackground(Color.BLACK);
 		this.setPreferredSize(new Dimension(Settings.Screen.SCREEN_WIDTH, Settings.Screen.SCREEN_HEIGHT));
 		this.setFocusable(true);
 		requestFocusInWindow();
 		this.addKeyListener(this);
-		scoreDisplay.setFont(new Font("MV Boli",Font.PLAIN,50));
-		scoreDisplay.setBackground(Color.white);
-		scoreDisplay.setForeground(Color.white);
-		scoreDisplay.setHorizontalAlignment(JLabel.RIGHT);
-		this.add(scoreDisplay);
 		PhysicsLoopCaster.addGraphicsUpdateLoop(this);
 
 	}
@@ -47,7 +41,22 @@ public class Panel extends JPanel implements KeyListener, GraphicsUpdate {
 		super.paintComponent(g);
 		drawSquares(g);
 		drawGrid(g);
-		System.out.println("PaintComponent: "+Thread.currentThread());
+		displayScore(g);
+		// System.out.println("PaintComponent: "+Thread.currentThread());
+	}
+
+	private void displayScore(Graphics g) {
+		Font font = new Font("Arial Black", Font.BOLD, 40);
+		g.setFont(font);
+		g.setColor(Color.white);
+
+		FontMetrics metrics = g.getFontMetrics(font);
+		int x = Settings.Screen.SCREEN_WIDTH
+				+ (Settings.Screen.SCREEN_WIDTH - metrics.stringWidth(String.valueOf(CurrentGameState.score))) / 2;
+		g.setFont(font);
+		g.drawString(String.valueOf(CurrentGameState.score), x, 100);
+
+		g.drawString(String.valueOf(CurrentGameState.score), Settings.Screen.SCREEN_WIDTH / 2 - 20, 100);
 	}
 
 	private boolean drawSquares(Graphics g) {

@@ -11,7 +11,6 @@ public class PressedKey {
 	private final ScheduledExecutorService executor;
 	int KeyCode;
 	boolean KeyReleased = false;
-	private boolean firstCycle = true;
 	private Inputs inputs;
 
 	public PressedKey(int KeyCode, Inputs inputs) {
