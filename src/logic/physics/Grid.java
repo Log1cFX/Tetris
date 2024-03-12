@@ -28,7 +28,7 @@ public class Grid implements Update {
 
 	private void UpdateGrid() {
 		CheckIfCollision();
-		burnLines();
+		checkLines();
 		// adding squares to settings.CurrentGameState.placed_Squares
 		ArrayList<Square> newGrid = new ArrayList<>();
 		for (Square[] column : grid) {
@@ -65,8 +65,10 @@ public class Grid implements Update {
 		}
 	}
 
-	private boolean burnLines() {
-		boolean[] isFullLine = new boolean[Settings.Screen.COLUMNS];
+	boolean[] isFullLine = new boolean[Settings.Screen.COLUMNS];
+	
+	private boolean checkLines() {
+		
 		for (int i = 0; i < isFullLine.length; i++) {
 			isFullLine[i] = true;
 		}
@@ -78,21 +80,34 @@ public class Grid implements Update {
 				}
 			}
 		}
-		// checks if there are any lines to burn
 		
-		boolean temp1 = false;
+		int numOfLinesToBurn = 0;
+		// checks if there are any lines to burn
 		for (int i = 0; i < isFullLine.length; i++) {
-			if (isFullLine[i] == true)
-				temp1 = true;
+			if (isFullLine[i] == true) {
+				numOfLinesToBurn++;
+			}
+			
 		}
-		if (!temp1) {
+		if (numOfLinesToBurn==0) {
 			return false;
 		}
 		// if no lines need to be burned return false
-
+		
+		switch(numOfLinesToBurn) {
+		case 1 : CurrentGameState.score = 100;
+		break;
+		case 2 : CurrentGameState.score = 400;
+		break;
+		case 3 : CurrentGameState.score = 800;
+		}
+		
+		return true;
+	}
+	
+	public void burnLines() {
 		Square[][] newGrid = new Square[Settings.Screen.ROWS][Settings.Screen.COLUMNS];
 		int i = 19;
-		int addScore = 100;
 		for (int columns = Settings.Screen.COLUMNS - 1; columns >= 0; columns--) {
 			if (!isFullLine[columns]) {
 				for (int rows = 0; rows < Settings.Screen.ROWS; rows++) {
@@ -107,10 +122,7 @@ public class Grid implements Update {
 		}
 		grid = newGrid;
 		
-		CurrentGameState.score += addScore;
-		
-		return true;
-		// 
+		//CurrentGameState.score += addScore;<
 	}
 
 	public void Wait() {
