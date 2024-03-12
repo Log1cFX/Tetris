@@ -28,7 +28,7 @@ public class Grid implements Update {
 
 	private void UpdateGrid() {
 		CheckIfCollision();
-		BurnLines();
+		burnLines();
 		// adding squares to settings.CurrentGameState.placed_Squares
 		ArrayList<Square> newGrid = new ArrayList<>();
 		for (Square[] column : grid) {
@@ -65,7 +65,7 @@ public class Grid implements Update {
 		}
 	}
 
-	private boolean BurnLines() {
+	private boolean burnLines() {
 		boolean[] isFullLine = new boolean[Settings.Screen.COLUMNS];
 		for (int i = 0; i < isFullLine.length; i++) {
 			isFullLine[i] = true;
@@ -149,7 +149,7 @@ public class Grid implements Update {
 	@Override
 	public void execute() {
 		finalUpdateTime = System.nanoTime();
-		if ((finalUpdateTime - startUpdateTime) / 1000000 >= CurrentGameState.BlockSpeedInMillis) {
+		if ((finalUpdateTime - startUpdateTime) / 1000000 >= CurrentGameState.blockSpeedInMillis) {
 			UpdateGrid();
 			startUpdateTime = System.nanoTime();
 		}
