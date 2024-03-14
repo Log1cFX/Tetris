@@ -1,23 +1,17 @@
 package display;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import logic.inputs.Inputs;
-import logic.physics.BlockManager;
 import logic.physics.GraphicsUpdate;
 import logic.physics.PhysicsLoopCaster;
 import logic.physics.Square;
-import logic.physics.Update;
 import settings.CurrentGameState;
 import settings.Settings;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -41,22 +35,7 @@ public class Panel extends JPanel implements KeyListener, GraphicsUpdate {
 		super.paintComponent(g);
 		drawSquares(g);
 		drawGrid(g);
-		displayScore(g);
 		// System.out.println("PaintComponent: "+Thread.currentThread());
-	}
-
-	private void displayScore(Graphics g) {
-		Font font = new Font("Arial Black", Font.BOLD, 40);
-		g.setFont(font);
-		g.setColor(Color.white);
-
-		FontMetrics metrics = g.getFontMetrics(font);
-		int x = Settings.Screen.SCREEN_WIDTH
-				+ (Settings.Screen.SCREEN_WIDTH - metrics.stringWidth(String.valueOf(CurrentGameState.score))) / 2;
-		g.setFont(font);
-		g.drawString(String.valueOf(CurrentGameState.score), x, 100);
-
-		g.drawString(String.valueOf(CurrentGameState.score), Settings.Screen.SCREEN_WIDTH / 2 - 20, 100);
 	}
 
 	private boolean drawSquares(Graphics g) {
