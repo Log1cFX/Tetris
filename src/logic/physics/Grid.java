@@ -29,6 +29,7 @@ public class Grid implements Update {
 	private void UpdateGrid() {
 		CheckIfCollision();
 		checkLines();
+		burnLines();
 		// adding squares to settings.CurrentGameState.placed_Squares
 		ArrayList<Square> newGrid = new ArrayList<>();
 		for (Square[] column : grid) {
