@@ -19,6 +19,7 @@ public class Grid implements Update {
 	public static volatile Square[][] grid = new Square[Settings.Screen.ROWS][Settings.Screen.COLUMNS];
 	// Grid[x][y], !null means that there is a square
 	protected BlockManager blockManager;
+	boolean[] isFullLine = new boolean[Settings.Screen.COLUMNS];
 
 	Grid() {
 		blockManager = new BlockManager(this);
@@ -64,8 +65,6 @@ public class Grid implements Update {
 			grid[square.location.x][square.location.y] = square;
 		}
 	}
-
-	boolean[] isFullLine = new boolean[Settings.Screen.COLUMNS];
 	
 	private boolean checkLines() {
 		
@@ -93,7 +92,6 @@ public class Grid implements Update {
 			return false;
 		}
 		// if no lines need to be burned return false
-		
 		switch(numOfLinesToBurn) {
 		case 1 : CurrentGameState.score = 100;
 		break;
@@ -101,7 +99,7 @@ public class Grid implements Update {
 		break;
 		case 3 : CurrentGameState.score = 800;
 		}
-		
+		burnLines();
 		return true;
 	}
 	
@@ -121,8 +119,6 @@ public class Grid implements Update {
 			}
 		}
 		grid = newGrid;
-		
-		//CurrentGameState.score += addScore;<
 	}
 
 	public void Wait() {
