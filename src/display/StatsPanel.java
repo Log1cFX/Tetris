@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
@@ -17,6 +18,7 @@ import settings.Settings;
 
 public class StatsPanel extends JPanel implements GraphicsUpdate {
 
+	private Font font = new Font("Arial", Font.PLAIN, 50);
 	Rectangle scoreRect = new Rectangle(0, (Settings.Screen.SCREEN_HEIGHT / 3) * 0, Settings.Screen.SCREEN_WIDTH / 2,
 			Settings.Screen.SCREEN_HEIGHT / 3);
 	Rectangle nextBlockRect = new Rectangle(0, (Settings.Screen.SCREEN_HEIGHT / 3) * 1,
@@ -25,6 +27,7 @@ public class StatsPanel extends JPanel implements GraphicsUpdate {
 			Settings.Screen.SCREEN_WIDTH / 2, Settings.Screen.SCREEN_HEIGHT / 3);
 
 	StatsPanel() {
+		
 		this.setBackground(Color.BLACK);
 		this.setPreferredSize(new Dimension(Settings.Screen.SCREEN_WIDTH / 2, Settings.Screen.SCREEN_HEIGHT));
 		this.setFocusable(true);
@@ -35,6 +38,8 @@ public class StatsPanel extends JPanel implements GraphicsUpdate {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		drawStatFrames(g2d);
+		g.setFont(font);
+		g.drawString(String.valueOf(CurrentGameState.score), scoreRect.width / 2, scoreRect.height / 2);
 
 		// System.out.println("PaintComponent: "+Thread.currentThread());
 	}
