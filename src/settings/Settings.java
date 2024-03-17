@@ -21,7 +21,7 @@ public class Settings {
 	}
 
 	public static class Animations {
-		public static final int WAIT_AFTER_COLLISION_IN_MILLIS = 1000;
-		public static final int BURN_LINE_ANIMATION_SPEED_IN_MILLIS = 200;
+		public static final int WAIT_AFTER_COLLISION_IN_MILLIS = 400;
+		public static final int BURN_LINE_ANIMATION_SPEED_IN_MILLIS = 300;
 	}
 }

@@ -19,7 +19,6 @@ public class Grid implements Update {
 	public static volatile Square[][] grid = new Square[Settings.Screen.ROWS][Settings.Screen.COLUMNS];
 	// Grid[x][y], !null means that there is a square
 	protected BlockManager blockManager;
-	boolean[] isFullLine = new boolean[Settings.Screen.COLUMNS];
 
 	Grid() {
 		blockManager = new BlockManager(this);
@@ -30,7 +29,7 @@ public class Grid implements Update {
 	private void UpdateGrid() {
 		CheckIfCollision();
 		checkLines();
-		burnLines();
+		// burnLines();
 		// adding squares to settings.CurrentGameState.placed_Squares
 		ArrayList<Square> newGrid = new ArrayList<>();
 		for (Square[] column : grid) {
@@ -42,19 +41,24 @@ public class Grid implements Update {
 		}
 		CurrentGameState.placedSquares.set(newGrid);
 	}
-	
+
 	// checks if collision under the block
 	public boolean CheckIfCollision() {
 		Square[] squares = blockManager.getSquaresRelativeToGrid();
 		for (Square square : squares) {
 			if (square.location.y + 1 >= Settings.Screen.COLUMNS
 					|| grid[square.location.x][square.location.y + 1] != null) {
+				if (!waiting) {
+					Wait();
+					return false;
+				}
 				Wait();
 				if (!waiting) {
 					PlaceBlockOnGrid(squares);
 					blockManager.NewBlock();
+					return true;
 				}
-				return true;
+				return false;
 			}
 		}
 		blockManager.currentBlock.getPosition().y += 1;
@@ -66,9 +70,9 @@ public class Grid implements Update {
 			grid[square.location.x][square.location.y] = square;
 		}
 	}
-	
+
 	private boolean checkLines() {
-		
+		boolean[] isFullLine = new boolean[Settings.Screen.COLUMNS];
 		for (int i = 0; i < isFullLine.length; i++) {
 			isFullLine[i] = true;
 		}
@@ -80,39 +84,43 @@ public class Grid implements Update {
 				}
 			}
 		}
-		
+
 		int numOfLinesToBurn = 0;
 		// checks if there are any lines to burn
 		for (int i = 0; i < isFullLine.length; i++) {
 			if (isFullLine[i] == true) {
 				numOfLinesToBurn++;
 			}
-			
+
 		}
-		if (numOfLinesToBurn==0) {
+		if (numOfLinesToBurn == 0) {
 			return false;
 		}
 		// if no lines need to be burned return false
-		switch(numOfLinesToBurn) {
-		case 1 : CurrentGameState.score = 100;
-		break;
-		case 2 : CurrentGameState.score = 400;
-		break;
-		case 3 : CurrentGameState.score = 800;
+		switch (numOfLinesToBurn) {
+		case 1:
+			CurrentGameState.score = 100;
+			break;
+		case 2:
+			CurrentGameState.score = 400;
+			break;
+		case 3:
+			CurrentGameState.score = 800;
 		}
-		burnLines();
+		CurrentGameState.linesToBurn.set(isFullLine);
+		CurrentGameState.animation = true;
 		return true;
 	}
-	
+
 	public void burnLines() {
 		Square[][] newGrid = new Square[Settings.Screen.ROWS][Settings.Screen.COLUMNS];
 		int i = 19;
 		for (int columns = Settings.Screen.COLUMNS - 1; columns >= 0; columns--) {
-			if (!isFullLine[columns]) {
+			if (!CurrentGameState.linesToBurn.get()[columns]) {
 				for (int rows = 0; rows < Settings.Screen.ROWS; rows++) {
 
 					if (grid[rows][columns] != null) {
-						grid[rows][columns].location = new Point(rows,i);
+						grid[rows][columns].location = new Point(rows, i);
 					}
 					newGrid[rows][i] = grid[rows][columns];
 				}
@@ -127,8 +135,7 @@ public class Grid implements Update {
 		if (waiting != true) {
 			waiting = true;
 			startWaitTime = System.nanoTime();
-		} else if (finalWaitTime - startWaitTime / 1000000 >= Settings.Animations.WAIT_AFTER_COLLISION_IN_MILLIS) {
-			System.out.println("g");
+		} else if ((finalWaitTime - startWaitTime) / 1000000 >= Settings.Animations.WAIT_AFTER_COLLISION_IN_MILLIS) {
 			waiting = false;
 		}
 	}
@@ -143,7 +150,7 @@ public class Grid implements Update {
 
 	// checks if is a valid position
 	protected boolean isValidPos(Point square) {
-		if (square.x < 0 || square.x >= Settings.Screen.ROWS || square.y >= Settings.Screen.COLUMNS
+		if (square.x < 0 || square.x >= Settings.Screen.ROWS || square.y >= Settings.Screen.COLUMNS || square.y <= 0
 				|| grid[square.x][square.y] != null) {
 			return false;
 		} else
@@ -158,7 +165,13 @@ public class Grid implements Update {
 	@Override
 	public void execute() {
 		finalUpdateTime = System.nanoTime();
-		if ((finalUpdateTime - startUpdateTime) / 1000000 >= CurrentGameState.blockSpeedInMillis) {
+		if(CurrentGameState.animationEnd==true) {
+			burnLines();
+			CurrentGameState.animation = false;
+			CurrentGameState.animationEnd = false;
+		}
+		if ((finalUpdateTime - startUpdateTime) / 1000000 >= CurrentGameState.blockSpeedInMillis
+				&& !CurrentGameState.animation) {
 			UpdateGrid();
 			startUpdateTime = System.nanoTime();
 		}

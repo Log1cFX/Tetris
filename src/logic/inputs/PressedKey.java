@@ -9,12 +9,12 @@ import settings.Settings;
 // this a Timer, that calls the inputHandler method till it's shutdown
 public class PressedKey {
 	private final ScheduledExecutorService executor;
-	int KeyCode;
-	boolean KeyReleased = false;
+	int keyCode;
+	boolean keyReleased = false;
 	private Inputs inputs;
 
 	public PressedKey(int KeyCode, Inputs inputs) {
-		this.KeyCode = KeyCode;
+		this.keyCode = KeyCode;
 		this.inputs = inputs;
 		// Initialize the ScheduledExecutorService
 		executor = Executors.newScheduledThreadPool(1);
@@ -23,14 +23,14 @@ public class PressedKey {
 
 	private void startPeriodicTask() {
 		Runnable task = () -> {
-			if (!KeyReleased) {
-				inputs.InputHandler(KeyCode);
+			if (!keyReleased) {
+				inputs.InputHandler(keyCode);
 			} else {
 				shutdown();
 			}
 		};
-		if (KeyCode != Settings.Controls.TURN_CLOCKWISE && KeyCode != Settings.Controls.TURN_COUNTER_CLOCKWISE) {
-			executor.scheduleAtFixedRate(task, 0, inputs.ThrottleValueInMillis, TimeUnit.MILLISECONDS);
+		if (keyCode != Settings.Controls.TURN_CLOCKWISE && keyCode != Settings.Controls.TURN_COUNTER_CLOCKWISE) {
+			executor.scheduleAtFixedRate(task, 0, inputs.throttleValueInMillis, TimeUnit.MILLISECONDS);
 		}
 		else {
 			task.run();

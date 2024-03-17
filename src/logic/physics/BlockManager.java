@@ -8,15 +8,15 @@ import settings.Settings;
 
 // Methods to manage the current block
 public class BlockManager {
-	
+
 	static Random rand = new Random();
 	Grid grid;
 	public BlockBehavior currentBlock; // Current falling block
-	
+
 	public BlockManager(Grid grid) {
 		this.grid = grid;
 	}
-	
+
 	// get position of the square on the grid
 	protected Square[] getSquaresRelativeToGrid() {
 		Square[] squares = new Square[4];
@@ -37,11 +37,11 @@ public class BlockManager {
 		for (Square square : getSquaresRelativeToGrid()) {
 			Point p = new Point(square.location);
 			p.translate(t.x, t.y);
-			
+
 			if (!grid.isValidPos(p)) {
 				return false;
 			}
-			//checks if all the blocks are in correct positions
+			// checks if all the blocks are in correct positions
 		}
 		// checks if valid position
 		currentBlock.getPosition().translate(t.x, t.y);
@@ -52,26 +52,61 @@ public class BlockManager {
 	// return true if the translation was performed
 	public boolean performRotation(int r) {
 		// 1 clock 0 means counter-clock
-		switch(r) {
-		case 0 : currentBlock.PreviousRotationPos();
-		break;
-		case 1 : currentBlock.NextRotationPos();
+		switch (r) {
+		case 0:
+			currentBlock.PreviousRotationPos();
+			break;
+		case 1:
+			currentBlock.NextRotationPos();
 		}
 		for (Square square : getSquaresRelativeToGrid()) {
 			if (!grid.isValidPos(square.location)) {
 				System.out.println("gg");
-				switch(r) {
-				case 0 : currentBlock.NextRotationPos();
-				break;
-				case 1 : currentBlock.PreviousRotationPos();
+				if (correctRotation()) {
+					return true;
+				} else {
+					switch (r) {
+					case 0:
+						currentBlock.NextRotationPos();
+						break;
+					case 1:
+						currentBlock.PreviousRotationPos();
+						break;
+					}
+					return false;
 				}
-				return false;
 			}
 		}
 		return true;
 	}
-	
-	
+
+	public boolean correctRotation() {
+		currentBlock.getPosition().x+=1;
+		boolean rotationCorrected = true;
+		for (Square square : getSquaresRelativeToGrid()) {
+			if (!grid.isValidPos(square.location)) {
+				rotationCorrected = false;
+				break;
+			}
+		}
+		if(rotationCorrected) {
+			return true;
+		}
+		rotationCorrected = true;
+		currentBlock.getPosition().x-=2;
+		for (Square square : getSquaresRelativeToGrid()) {
+			if (!grid.isValidPos(square.location)) {
+				rotationCorrected = false;
+				break;
+			}
+		}
+		if(rotationCorrected) {
+			return true;
+		}
+		currentBlock.getPosition().x+=1;
+		return false;
+	}
+
 	private Square[] convertStringsToSquares(String[] stringPoints) {
 		Square[] Squares = new Square[stringPoints.length];
 
@@ -88,23 +123,30 @@ public class BlockManager {
 	protected void NewBlock() {
 
 		int i = rand.nextInt(6);
-		int pos = rand.nextInt(1,Settings.Screen.ROWS-2);
+		int pos = rand.nextInt(1, Settings.Screen.ROWS - 2);
 		System.out.println("new block");
-		switch(i) {
-		case 0 : currentBlock = new I_Block(pos);
-		break;
-		case 1 : currentBlock = new O_Block(pos);
-		break;
-		case 2 : currentBlock = new L_Block(pos);
-		break;
-		case 3 : currentBlock = new J_Block(pos);
-		break;
-		case 4 : currentBlock = new T_Block(pos);
-		break;
-		case 5 : currentBlock = new S_Block(pos);
-		break;
-		case 6 : currentBlock = new Z_Block(pos);
-		break;
+		switch (i) {
+		case 0:
+			currentBlock = new I_Block(pos);
+			break;
+		case 1:
+			currentBlock = new O_Block(pos);
+			break;
+		case 2:
+			currentBlock = new L_Block(pos);
+			break;
+		case 3:
+			currentBlock = new J_Block(pos);
+			break;
+		case 4:
+			currentBlock = new T_Block(pos);
+			break;
+		case 5:
+			currentBlock = new S_Block(pos);
+			break;
+		case 6:
+			currentBlock = new Z_Block(pos);
+			break;
 		}
 	}
 }
