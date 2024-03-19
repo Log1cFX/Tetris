@@ -33,31 +33,22 @@ public class Inputs implements KeyListener {
 	// creates new instance of KeyPressed
 	@Override
 	public void keyPressed(KeyEvent e) {
-		int keyCode = e.getKeyCode();
+		int KeyCode = e.getKeyCode();
 		boolean addKey = true;
-		boolean leftOrRightKey = false;
+		for (PressedKey key : keysArray) {
+			if (key.keyCode == KeyCode) {
 
-		if (keyCode == Settings.Controls.LEFT || keyCode == Settings.Controls.RIGHT) {
-			leftOrRightKey = true;
-		}
-		for (int i = 0; i < keysArray.size(); i++) {
-			if (keysArray.get(i).keyCode == keyCode) {
 				addKey = false;
 				break;
 			}
-			if (leftOrRightKey && keysArray.get(i).keyCode == Settings.Controls.LEFT
-					|| keysArray.get(i).keyCode == Settings.Controls.RIGHT) {
-				keysArray.get(i).shutdown();
-				keysArray.remove(i);
-			}
+
 		}
 		// checks all the existing instances of keyPressed to see if there is an
 		// instance with the same button
-		// if the button is right or left checks if there is an instance with left or
-		// white button
+
 		if (addKey)
 			keysArray.add(new PressedKey(e.getKeyCode(), this));
-		// adds instance of PressedKey with the key code of the current button
+		// adds instance of keyPressed with the key code of the current button
 	}
 
 	@Override

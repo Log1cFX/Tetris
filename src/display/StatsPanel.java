@@ -60,7 +60,6 @@ public class StatsPanel extends JPanel implements GraphicsUpdate {
 	@Override
 	public void Update() {
 		repaint();
-
 	}
 
 }

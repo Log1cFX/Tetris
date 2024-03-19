@@ -13,6 +13,6 @@ public class CurrentGameState {
 	public static volatile boolean animationEnd = false;
 	public static int blockSpeedInMillis = 100;
 	public static volatile int score = 0;
-	public static volatile boolean isOver = false;
+	public static volatile boolean gameOver = false;
 	public static volatile boolean burnLines = false;
 }

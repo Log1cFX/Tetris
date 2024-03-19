@@ -36,42 +36,41 @@ public class Panel extends JPanel implements KeyListener, GraphicsUpdate {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		drawSquares(g);
-		drawGrid(g);
 		if (CurrentGameState.animation) {
 			animation(g);
 		}
-		// System.out.println("PaintComponent: "+Thread.currentThread());
+		//drawGrid(g);
+
 	}
 
 	float i = 0; // Use float for smoother increments
-	float availableFrames = Settings.Screen.FPS * (Settings.Animations.BURN_LINE_ANIMATION_SPEED_IN_MILLIS / 1000f); // Ensure division by 1000.0 for milliseconds to seconds conversion
-	float increaseRectForAnimationPerFrame = Settings.Screen.SCREEN_WIDTH / (2 * availableFrames); // Calculate the expansion per frame more precisely
+	float availableFrames = Settings.Screen.FPS * (Settings.Animations.BURN_LINE_ANIMATION_SPEED_IN_MILLIS / 1000f);
+	// Ensure division by 1000.0 for milliseconds to seconds conversion
+	float increaseRectForAnimationPerFrame = Settings.Screen.SCREEN_WIDTH / (2 * availableFrames);
+	// Calculate the expansion per frame more precisely
 
 	// if called, draws an expanding white square on all the full lines
 	// return true if rectangle expanded
 	private boolean animation(Graphics g) {
-	    g.setColor(Color.white);
+		g.setColor(Color.black);
 
-	    if (i < availableFrames) { // x
-	        i += 1.0f; // Increment by float
-	        for (int j = 0; j < CurrentGameState.linesToBurn.get().length; j++) { // y
-	            if (CurrentGameState.linesToBurn.get()[j]) { // Do animation only on full lines
-	                int startX = (int)(-i * increaseRectForAnimationPerFrame + Settings.Screen.SCREEN_WIDTH / 2);
-	                int width = (int)(i * increaseRectForAnimationPerFrame * 2);
-	                g.fillRect(startX,
-	                           j * Settings.Screen.UNIT_SIZE, 
-	                           width,
-	                           Settings.Screen.UNIT_SIZE);
-	            }
-	        }
-	    } else { // Once finished, ends the animation
-	        CurrentGameState.animation = false;
-	        CurrentGameState.animationEnd = true;
-	        i = 0.0f;
-	    }
-	    return true;
+		if (i < availableFrames) { // x
+			i += 1.0f; // Increment by float
+			for (int j = 0; j < CurrentGameState.linesToBurn.get().length; j++) { // y
+				if (CurrentGameState.linesToBurn.get()[j]) { // Do animation only on full lines
+					int startX = (int) (-i * increaseRectForAnimationPerFrame + Settings.Screen.SCREEN_WIDTH / 2);
+					int width = (int) (i * increaseRectForAnimationPerFrame * 2);
+					g.fillRect(startX, j * Settings.Screen.UNIT_SIZE, width, Settings.Screen.UNIT_SIZE);
+				}
+			}
+		} else { // Once finished, ends the animation
+			CurrentGameState.animation = false;
+			CurrentGameState.animationEnd = true;
+			i = 0.0f;
+		}
+		return true;
 	}
-	
+
 	private boolean drawSquares(Graphics g) {
 		if (CurrentGameState.placedSquares.get() != null) {
 			for (Square square : CurrentGameState.placedSquares.get()) {

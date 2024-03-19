@@ -1,4 +1,4 @@
-package logic.physics;
+ package logic.physics;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -99,13 +99,13 @@ public class Grid implements Update {
 		// if no lines need to be burned return false
 		switch (numOfLinesToBurn) {
 		case 1:
-			CurrentGameState.score = 100;
+			CurrentGameState.score += 100;
 			break;
 		case 2:
-			CurrentGameState.score = 400;
+			CurrentGameState.score += 400;
 			break;
 		case 3:
-			CurrentGameState.score = 800;
+			CurrentGameState.score += 800;
 		}
 		CurrentGameState.linesToBurn.set(isFullLine);
 		CurrentGameState.animation = true;
@@ -141,9 +141,9 @@ public class Grid implements Update {
 	}
 
 	private void GameIsOver() {
-		for (Square square : blockManager.getSquaresRelativeToGrid()) {
-			if (square.location.y > 0) {
-				CurrentGameState.isOver = true;
+		for(int i=0;i<Settings.Screen.ROWS;i++) {
+			if(grid[i][0]!=null) {
+				CurrentGameState.gameOver = true;
 			}
 		}
 	}

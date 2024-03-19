@@ -122,7 +122,7 @@ public class BlockManager {
 
 	protected void NewBlock() {
 
-		int i = rand.nextInt(6);
+		int i = rand.nextInt(7);
 		int pos = rand.nextInt(1, Settings.Screen.ROWS - 2);
 		System.out.println("new block");
 		switch (i) {
