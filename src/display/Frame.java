@@ -11,7 +11,7 @@ public class Frame extends JFrame {
     	this.setLayout(new BorderLayout());
     	this.add(new Panel(), BorderLayout.WEST);
     	this.add(new StatsPanel(), BorderLayout.EAST);
-		this.setTitle("Tertrix");
+		this.setTitle("Tetris");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.pack();
